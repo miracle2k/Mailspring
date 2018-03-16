@@ -1,7 +1,27 @@
 {
   "presets": [
-    "electron",
+    [
+      "es2015",
+      {
+        "modules": false
+      }
+    ],
+    "stage-0",
     "react"
   ],
-  "sourceMaps": "inline"
+  "plugins": [
+  ],
+  "env": {
+    "production": {
+      "plugins": []
+    },
+    "development": {
+      "plugins": []
+    },
+    "test": {
+      "plugins": [
+        "istanbul"
+      ]
+    }
+  }
 }

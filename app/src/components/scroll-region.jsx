@@ -553,4 +553,4 @@ class ScrollRegion extends React.Component {
 
 ScrollRegion.Scrollbar = Scrollbar;
 
-module.exports = ScrollRegion;
+export default ScrollRegion;

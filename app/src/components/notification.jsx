@@ -46,17 +46,17 @@ export default class Notification extends React.Component {
 
   _shiftAsks(incr) {
     const current = this._numAsks();
-    AppEnv.savedState.dismissedNotificationAsks[this.props.displayName] = current + incr;
+    // AppEnv.savedState.dismissedNotificationAsks[this.props.displayName] = current + incr;
   }
 
   _numAsks() {
-    if (!AppEnv.savedState.dismissedNotificationAsks) {
-      AppEnv.savedState.dismissedNotificationAsks = {};
-    }
-    if (!AppEnv.savedState.dismissedNotificationAsks[this.props.displayName]) {
-      AppEnv.savedState.dismissedNotificationAsks[this.props.displayName] = 0;
-    }
-    return AppEnv.savedState.dismissedNotificationAsks[this.props.displayName];
+    // if (!AppEnv.savedState.dismissedNotificationAsks) {
+    //   AppEnv.savedState.dismissedNotificationAsks = {};
+    // }
+    // if (!AppEnv.savedState.dismissedNotificationAsks[this.props.displayName]) {
+    //   AppEnv.savedState.dismissedNotificationAsks[this.props.displayName] = 0;
+    // }
+    // return AppEnv.savedState.dismissedNotificationAsks[this.props.displayName];
   }
 
   async _onClick(event, actionId, actionFn) {

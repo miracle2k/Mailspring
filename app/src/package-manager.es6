@@ -30,6 +30,22 @@ export default class PackageManager {
   }
 
   discoverPackages() {
+    let p = new Package({json: require('../internal_packages/ui-light/package.json')});
+    this.available[p.name] = p;
+    
+    p = new Package({json: require('../internal_packages/account-sidebar/package.json')});
+    if (p.json.main) {
+      p.requireModule = () => require('../internal_packages/account-sidebar/lib/main');
+      p.requireStylesheet = () => ({
+        "../internal_packages/account-sidebar/styles/account-sidebar.less": require('../internal_packages/account-sidebar/styles/account-sidebar.less')
+      });
+
+    }
+    this.available[p.name] = p;
+
+    return;
+
+
     for (const dir of this.packageDirectories) {
       let filenames = [];
       try {

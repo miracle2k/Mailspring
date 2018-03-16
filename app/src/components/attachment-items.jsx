@@ -110,8 +110,8 @@ export class AttachmentItem extends Component {
 
   _previewAttachment() {
     const { filePath } = this.props;
-    const currentWin = AppEnv.getCurrentWindow();
-    currentWin.previewFile(filePath);
+    // const currentWin = AppEnv.getCurrentWindow();
+    // currentWin.previewFile(filePath);
   }
 
   _onDragStart = event => {

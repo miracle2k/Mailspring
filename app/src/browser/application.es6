@@ -2,11 +2,11 @@
 
 import { BrowserWindow, Menu, app, ipcMain, dialog } from 'electron';
 
-import fs from 'fs-plus';
-import url from 'url';
-import path from 'path';
-import proc from 'child_process';
-import { EventEmitter } from 'events';
+//import fs from 'fs-plus';
+//import url from 'url';
+//import path from 'path';
+//import proc from 'child_process';
+//import { EventEmitter } from 'events';
 
 import { localized } from '../intl';
 import WindowManager from './window-manager';
@@ -39,44 +39,44 @@ export default class Application extends EventEmitter {
     this.safeMode = safeMode;
 
     this.fileListCache = new FileListCache();
-    this.mailspringProtocolHandler = new MailspringProtocolHandler({
-      configDirPath,
-      resourcePath,
-      safeMode,
-    });
+    //this.mailspringProtocolHandler = new MailspringProtocolHandler({
+    //  configDirPath,
+    //  resourcePath,
+    //  safeMode,
+    //});
 
-    try {
-      const mailsync = new MailsyncProcess(options);
-      await mailsync.migrate();
-    } catch (err) {
-      let message = null;
-      let buttons = [localized('Quit')];
-      if (err.toString().includes('ENOENT')) {
-        message = localized(
-          `Mailspring could find the mailsync process. If you're building Mailspring from source, make sure mailsync.tar.gz has been downloaded and unpacked in your working copy.`
-        );
-      } else if (err.toString().includes('spawn')) {
-        message = localized(`Mailspring could not spawn the mailsync process. %@`, err.toString());
-      } else {
-        message = localized(
-          `We encountered a problem with your local email database. %@\n\nCheck that no other copies of Mailspring are running and click Rebuild to reset your local cache.`,
-          err.toString()
-        );
-        buttons = [localized('Quit'), localized('Rebuild')];
-      }
+    //try {
+    //  const mailsync = new MailsyncProcess(options);
+    //  await mailsync.migrate();
+    //} catch (err) {
+    //  let message = null;
+    //  let buttons = [localized('Quit')];
+    //  if (err.toString().includes('ENOENT')) {
+    //    message = localized(
+    //      `Mailspring could find the mailsync process. If you're building Mailspring from source, make sure mailsync.tar.gz has been downloaded and unpacked in your working copy.`
+    //    );
+    //  } else if (err.toString().includes('spawn')) {
+    //    message = localized(`Mailspring could not spawn the mailsync process. %@`, err.toString());
+    //  } else {
+    //    message = localized(
+    //      `We encountered a problem with your local email database. %@\n\nCheck that no other copies of Mailspring are running and click Rebuild to reset your local cache.`,
+    //      err.toString()
+    //    );
+    //    buttons = [localized('Quit'), localized('Rebuild')];
+    //  }
 
-      const buttonIndex = dialog.showMessageBox({ type: 'warning', buttons, message });
+    //  const buttonIndex = dialog.showMessageBox({ type: 'warning', buttons, message });
 
-      if (buttonIndex === 0) {
-        app.quit();
-      } else {
-        this._deleteDatabase(() => {
-          app.relaunch();
-          app.quit();
-        });
-      }
-      return;
-    }
+    //  if (buttonIndex === 0) {
+    //    app.quit();
+    //  } else {
+    //    this._deleteDatabase(() => {
+    //      app.relaunch();
+    //      app.quit();
+    //    });
+    //  }
+    //  return;
+    //}
 
     const Config = require('../config');
     const config = new Config();
@@ -92,44 +92,44 @@ export default class Application extends EventEmitter {
       initializeInBackground = false;
     }
 
-    await this.oneTimeMoveToApplications();
-    await this.oneTimeAddToDock();
+    // await this.oneTimeMoveToApplications();
+    // await this.oneTimeAddToDock();
 
-    this.autoUpdateManager = new AutoUpdateManager(version, config, specMode);
-    this.applicationMenu = new ApplicationMenu(version);
-    this.windowManager = new WindowManager({
-      resourcePath: this.resourcePath,
-      configDirPath: this.configDirPath,
-      config: this.config,
-      devMode: this.devMode,
-      specMode: this.specMode,
-      safeMode: this.safeMode,
-      initializeInBackground: initializeInBackground,
-    });
-    this.systemTrayManager = new SystemTrayManager(process.platform, this);
-    if (process.platform === 'darwin') {
-      this.touchBar = new ApplicationTouchBar(resourcePath);
-    }
+    //this.autoUpdateManager = new AutoUpdateManager(version, config, specMode);
+    //this.applicationMenu = new ApplicationMenu(version);
+    // this.windowManager = new WindowManager({
+    //   resourcePath: this.resourcePath,
+    //   configDirPath: this.configDirPath,
+    //   config: this.config,
+    //   devMode: this.devMode,
+    //   specMode: this.specMode,
+    //   safeMode: this.safeMode,
+    //   initializeInBackground: initializeInBackground,
+    // });
+    // this.systemTrayManager = new SystemTrayManager(process.platform, this);
+    //if (process.platform === 'darwin') {
+    //  this.touchBar = new ApplicationTouchBar(resourcePath);
+    //}
 
-    this.setupJavaScriptArguments();
-    this.handleEvents();
-    this.handleLaunchOptions(options);
+    //this.setupJavaScriptArguments();
+    //this.handleEvents();
+    //this.handleLaunchOptions(options);
 
-    if (process.platform === 'linux') {
-      const helper = new DefaultClientHelper();
-      helper.registerForURLScheme('mailspring');
-    } else {
-      app.setAsDefaultProtocolClient('mailspring');
-    }
+    // if (process.platform === 'linux') {
+    //   const helper = new DefaultClientHelper();
+    //   helper.registerForURLScheme('mailspring');
+    // } else {
+    //   app.setAsDefaultProtocolClient('mailspring');
+    // }
   }
 
   getMainWindow() {
-    const win = this.windowManager.get(WindowManager.MAIN_WINDOW);
-    return win ? win.browserWindow : null;
+    //const win = this.windowManager.get(WindowManager.MAIN_WINDOW);
+    //return win ? win.browserWindow : null;
   }
 
   getAllWindowDimensions() {
-    return this.windowManager.getAllWindowDimensions();
+    // return this.windowManager.getAllWindowDimensions();
   }
 
   isQuitting() {
@@ -289,7 +289,7 @@ export default class Application extends EventEmitter {
   // handled. This happens in workspace-element.es6
   handleEvents() {
     this.on('application:run-all-specs', () => {
-      const win = this.windowManager.focusedWindow();
+      // const win = this.windowManager.focusedWindow();
       this.runSpecs({
         exitWhenDone: false,
         showSpecsInWindow: true,
@@ -437,7 +437,7 @@ export default class Application extends EventEmitter {
       // Allow the main window to be closed.
       this.quitting = true;
       // Destroy hot windows so that they can't block the app from quitting.
-      // (Electron will wait for them to finish loading before quitting.)
+      // // (Electron will wait for them to finish loading before quitting.)
       this.windowManager.cleanupBeforeAppQuit();
       this.systemTrayManager.destroyTray();
     });
@@ -517,7 +517,7 @@ export default class Application extends EventEmitter {
         // well.
         out = html;
       }
-      // win = BrowserWindow.fromWebContents(event.sender)
+      win = BrowserWindow.fromWebContents(event.sender)
       event.sender.send('inline-styles-result', { html: out, key });
     });
 

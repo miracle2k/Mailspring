@@ -22,8 +22,8 @@ class Spellchecker {
     // Nobody will notice if spellcheck isn't avaialable for a few seconds and it
     // takes a considerable amount of time to startup (212ms in dev mode on my 2017 MBP)
     const initHandler = () => {
-      const { SpellCheckHandler } = require('electron-spellchecker'); //eslint-disable-line
-      this.handler = new SpellCheckHandler();
+      // const { SpellCheckHandler } = require('electron-spellchecker'); //eslint-disable-line
+      // this.handler = new SpellCheckHandler();
       this._switchToLanguage(AppEnv.config.get('core.composing.spellcheckDefaultLanguage')); // Start with the configured language
       AppEnv.config.onDidChange('core.composing.spellcheckDefaultLanguage', value => {
         this._switchToLanguage(value.newValue);

@@ -6,20 +6,26 @@ class NoPackageJSONError extends Error {}
 export default class Package {
   static NoPackageJSONError = NoPackageJSONError;
 
-  constructor(dir) {
-    this.directory = dir;
-
-    let jsonString = null;
-    try {
-      jsonString = fs.readFileSync(path.join(dir, 'package.json')).toString();
-    } catch (err) {
-      // silently fail, not a file
+  constructor({dir, json}) {
+    if (json) {
+      this.json = json;
     }
-    if (!jsonString) {
-      throw new NoPackageJSONError();
+    else {
+      this.directory = dir;
+
+      let jsonString = null;
+      try {
+        jsonString = fs.readFileSync(path.join(dir, 'package.json')).toString();
+      } catch (err) {
+        // silently fail, not a file
+      }
+      if (!jsonString) {
+        throw new NoPackageJSONError();
+      }
+
+      this.json = JSON.parse(jsonString);
     }
 
-    this.json = JSON.parse(jsonString);
     this.name = this.json.name;
     this.displayName = this.json.displayName || this.json.name;
     this.disposables = [];
@@ -27,31 +33,38 @@ export default class Package {
     this.windowTypes = this.json.windowTypes || { default: true };
   }
 
-  activate() {
+  activate() {    
     const start = Date.now(); // eslint-disable-line
 
     this.loadKeymaps();
     this.loadMenus();
     this.loadStylesheets();
 
-    if (this.json.main) {
+    if (this.requireModule) {
+      this.activateModule(this.requireModule());
+    }
+    else if (this.json.main) {
       const root = path.join(this.directory, this.json.main);
       const module = require(root); // eslint-disable-line
 
-      module.activate();
-
-      if (module.config && typeof module.config === 'object') {
-        AppEnv.config.setSchema(this.name, { type: 'object', properties: module.config });
-      } else if (module.configDefaults && typeof module.configDefaults === 'object') {
-        AppEnv.config.setDefaults(this.name, module.configDefaults);
-      }
-      if (module.activateConfig) {
-        module.activateConfig();
-      }
+      this.activateModule(module);      
     }
 
     // Uncomment to enable timing inspection
     // console.log(`Loading ${this.name} took ${Date.now() - start}`);
+  }
+
+  activateModule(module) {
+    module.activate();
+
+    if (module.config && typeof module.config === 'object') {
+      AppEnv.config.setSchema(this.name, { type: 'object', properties: module.config });
+    } else if (module.configDefaults && typeof module.configDefaults === 'object') {
+      AppEnv.config.setDefaults(this.name, module.configDefaults);
+    }
+    if (module.activateConfig) {
+      module.activateConfig();
+    }
   }
 
   deactivate() {
@@ -82,7 +95,10 @@ export default class Package {
     return path.join(this.directory, 'styles');
   }
 
-  loadKeymaps() {
+  loadKeymaps() {    
+    if (!this.directory) {
+      return;
+    }
     let keymapPaths = [];
     const keymapsRoot = path.join(this.directory, 'keymaps');
     try {
@@ -101,6 +117,22 @@ export default class Package {
   }
 
   loadStylesheets() {
+    if (this.requireStylesheet) {
+      const styles = this.requireStylesheet();
+      Object.entries(styles).forEach(([sourcePath, content]) => {
+        this.disposables.push(
+          AppEnv.styles.addStyleSheet(content, {
+            sourcePath,
+            priority: this.isTheme() ? 1 : 0,
+            context: null,
+          })
+        );
+      })
+    }
+
+    if (!this.directory) {
+      return;
+    }
     let stylesheets = [];
     const stylesRoot = this.getStylesheetsPath();
     try {
@@ -129,6 +161,10 @@ export default class Package {
   }
 
   loadMenus() {
+    if (!this.directory) {
+      return;
+    }
+
     const menusRoot = path.join(this.directory, 'menus');
     let menuPaths = [];
 

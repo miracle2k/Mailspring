@@ -6,21 +6,25 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let app, errorLogger, webContentsId;
+let app, webContentsId;
 let _ = require('underscore');
 _ = Object.assign(_, require('./config-utils'));
 const { remote } = require('electron');
 const { Emitter } = require('event-kit');
 
-if (process.type === 'renderer') {
-  app = remote.getGlobal('application');
-  webContentsId = remote.getCurrentWebContents().getId();
-  ({ errorLogger } = AppEnv);
-} else {
-  app = global.application;
-  webContentsId = null;
-  ({ errorLogger } = global);
-}
+// if (process.type === 'renderer') {
+//   app = remote.getGlobal('application');
+//   webContentsId = remote.getCurrentWebContents().getId();
+//   ({ errorLogger } = AppEnv);
+// } else {
+//   app = global.application;
+//   webContentsId = null;
+//   ({ errorLogger } = global);
+// }
+app = global.application;
+webContentsId = null;
+({ errorLogger } = global);
+
 
 // Essential: Used to access all of N1's configuration details.
 //

@@ -9,9 +9,9 @@ if (process.type === 'renderer') {
   app = require('electron').app;
 }
 
-var appVersion = app.getVersion();
-var crashReporter = require('electron').crashReporter;
-var RavenErrorReporter = require('./error-logger-extensions/raven-error-reporter');
+// var appVersion = app.getVersion();
+// var crashReporter = require('electron').crashReporter;
+// var RavenErrorReporter = require('./error-logger-extensions/raven-error-reporter');
 
 // A globally available ErrorLogger that can report errors to various
 // sources and enhance error functionality.
@@ -42,11 +42,11 @@ module.exports = ErrorLogger = (function() {
     this._extendNativeConsole();
 
     this.extensions = [
-      new RavenErrorReporter({
-        inSpecMode: args.inSpecMode,
-        inDevMode: args.inDevMode,
-        resourcePath: args.resourcePath,
-      }),
+      // new RavenErrorReporter({
+      //   inSpecMode: args.inSpecMode,
+      //   inDevMode: args.inDevMode,
+      //   resourcePath: args.resourcePath,
+      // }),
     ];
 
     if (this.inSpecMode) {
@@ -106,19 +106,19 @@ module.exports = ErrorLogger = (function() {
   /////////////////////////////////////////////////////////////////////
 
   ErrorLogger.prototype._startCrashReporter = function(args) {
-    crashReporter.start({
-      productName: 'Mailspring',
-      companyName: 'Mailspring',
-      submitURL: `https://id.getmailspring.com/report-crash?ver=${appVersion}&platform=${
-        process.platform
-      }`,
-      uploadToServer: true,
-      autoSubmit: true,
-      extra: {
-        ver: appVersion,
-        platform: process.platform,
-      },
-    });
+    // crashReporter.start({
+    //   productName: 'Mailspring',
+    //   companyName: 'Mailspring',
+    //   submitURL: `https://id.getmailspring.com/report-crash?ver=${appVersion}&platform=${
+    //     process.platform
+    //   }`,
+    //   uploadToServer: true,
+    //   autoSubmit: true,
+    //   extra: {
+    //     ver: appVersion,
+    //     platform: process.platform,
+    //   },
+    // });
   };
 
   ErrorLogger.prototype._extendNativeConsole = function(args) {
@@ -167,6 +167,8 @@ module.exports = ErrorLogger = (function() {
       console.log.apply(console, args);
     }
   };
+
+  
 
   return ErrorLogger;
 })();

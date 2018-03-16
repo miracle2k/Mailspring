@@ -1,5 +1,5 @@
 /* eslint global-require: 0 */
-import utf7 from 'utf7';
+//import utf7 from 'utf7';
 import Model from './model';
 import Attributes from '../attributes';
 import { localized } from '../../intl';
@@ -75,7 +75,8 @@ Section: Models
 */
 export default class Category extends Model {
   get displayName() {
-    const decoded = utf7.imap.decode(this.path);
+    //const decoded = utf7.imap.decode(this.path);
+    const decoded = this.path;
 
     for (const prefix of ['INBOX', '[Gmail]', '[Mailspring]']) {
       if (decoded.startsWith(prefix) && decoded.length > prefix.length + 1) {

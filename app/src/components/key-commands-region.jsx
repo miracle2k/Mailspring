@@ -143,10 +143,10 @@ export default class KeyCommandsRegion extends React.Component {
     $el.addEventListener('focusout', this._onFocusOut);
 
     if (globalHandlers) {
-      this._globalDisposable = AppEnv.commands.add(document.body, globalHandlers);
+      // this._globalDisposable = AppEnv.commands.add(document.body, globalHandlers);
     }
     if (localHandlers) {
-      this._localDisposable = AppEnv.commands.add($el, localHandlers);
+      // this._localDisposable = AppEnv.commands.add($el, localHandlers);
     }
 
     window.addEventListener('browser-window-blur', this._onWindowBlur);

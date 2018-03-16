@@ -84,6 +84,8 @@ class KeyManager {
   }
 
   async _getKeyHash() {
+    return {};
+
     const raw = (await keytar.getPassword(this.SERVICE_NAME, this.KEY_NAME)) || '{}';
     try {
       return JSON.parse(raw);
@@ -93,6 +95,8 @@ class KeyManager {
   }
 
   async _writeKeyHash(keys) {
+    return;
+    
     await keytar.setPassword(this.SERVICE_NAME, this.KEY_NAME, JSON.stringify(keys));
   }
 

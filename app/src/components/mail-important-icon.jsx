@@ -58,9 +58,9 @@ class MailImportantIcon extends React.Component {
     this.unsubscribe = FocusedPerspectiveStore.listen(() => {
       this.setState(this.getState());
     });
-    this.subscription = AppEnv.config.onDidChange(ShowImportantKey, () => {
-      this.setState(this.getState());
-    });
+    // this.subscription = AppEnv.config.onDidChange(ShowImportantKey, () => {
+    //   this.setState(this.getState());
+    // });
   }
 
   componentWillReceiveProps(nextProps) {

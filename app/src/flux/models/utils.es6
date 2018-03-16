@@ -222,6 +222,8 @@ module.exports = Utils = {
   },
 
   imageNamed(fullname, resourcePath) {
+    return null;
+    
     const [name, ext] = fullname.split('.');
 
     if (DefaultResourcePath == null) {

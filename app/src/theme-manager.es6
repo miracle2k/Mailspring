@@ -3,7 +3,7 @@ import { Emitter } from 'event-kit';
 import path from 'path';
 import fs from 'fs-plus';
 import { localized } from './intl';
-import LessCompileCache from './less-compile-cache';
+//import LessCompileCache from './less-compile-cache';
 
 const CONFIG_THEME_KEY = 'core.theme';
 
@@ -32,11 +32,11 @@ export default class ThemeManager {
 
     this.emitter = new Emitter();
     this.styleSheetDisposablesBySourcePath = {};
-    this.lessCache = new LessCompileCache({
-      configDirPath: this.configDirPath,
-      resourcePath: this.resourcePath,
-      importPaths: this.getImportPaths(),
-    });
+    // this.lessCache = new LessCompileCache({
+    //   configDirPath: this.configDirPath,
+    //   resourcePath: this.resourcePath,
+    //   importPaths: this.getImportPaths(),
+    // });
 
     AppEnv.config.onDidChange(CONFIG_THEME_KEY, () => this.updateThemePackageAndRecomputeLESS());
   }
@@ -92,7 +92,7 @@ export default class ThemeManager {
 
   getActiveTheme() {
     if (this.baseThemeOnly) {
-      return this.getBaseTheme();
+      return this.getBaseTheme(); 
     }
     return (
       this.packageManager.getPackageNamed(AppEnv.config.get(CONFIG_THEME_KEY)) ||
@@ -156,6 +156,10 @@ export default class ThemeManager {
       throw new Error(localized(`Could not find a file at path '%@'`, stylesheetPath));
     }
     const content = this.cssContentsOfStylesheet(sourcePath);
+    this.requireStylesheetContents(sourcePath, content);
+  }
+
+  requireStylesheetContents(sourcePath, content) {
     this.styleSheetDisposablesBySourcePath[sourcePath] = AppEnv.styles.addStyleSheet(content, {
       priority: -1,
       sourcePath,
@@ -163,8 +167,9 @@ export default class ThemeManager {
   }
 
   loadStaticStylesheets() {
-    this.requireStylesheet('../static/index');
-    this.requireStylesheet('../static/email-frame');
+    // m2k: We could use a webpack, babel plugin for this
+    this.requireStylesheetContents('../static/index', require('../static/index.less'));
+    this.requireStylesheetContents('../static/email-frame', require('../static/email-frame.less'));
   }
 
   resolveStylesheetPath(stylesheetPath) {

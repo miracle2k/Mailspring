@@ -87,36 +87,36 @@ function decorationsForNode(node, value) {
       continue;
     }
 
-    if (AppEnv.spellchecker.isMisspelled(match[0])) {
-      const range = Range.create({
-        anchorKey: key,
-        anchorOffset: match.index,
-        focusKey: key,
-        focusOffset: match.index + match[0].length,
-        marks: [{ type: MISSPELLED_TYPE }],
-      });
+    // if (AppEnv.spellchecker.isMisspelled(match[0])) {
+    //   const range = Range.create({
+    //     anchorKey: key,
+    //     anchorOffset: match.index,
+    //     focusKey: key,
+    //     focusOffset: match.index + match[0].length,
+    //     marks: [{ type: MISSPELLED_TYPE }],
+    //   });
 
-      // If this text range has marks (it's part of a link, template variable,
-      // inline code fragment, etc.) don't mark it as misspelled.
-      if (value.document.getMarksAtRange(range).find(m => EXCEPT_MARK_TYPES.includes(m.type))) {
-        continue;
-      }
+    //   // If this text range has marks (it's part of a link, template variable,
+    //   // inline code fragment, etc.) don't mark it as misspelled.
+    //   if (value.document.getMarksAtRange(range).find(m => EXCEPT_MARK_TYPES.includes(m.type))) {
+    //     continue;
+    //   }
 
-      // If this word is "isn" of isn't or the "inz" of "y'inz", don't mark it
-      if (text[match[0].length + 1] === "'" || text[match.index - 1] === "'") {
-        continue;
-      }
+    //   // If this word is "isn" of isn't or the "inz" of "y'inz", don't mark it
+    //   if (text[match[0].length + 1] === "'" || text[match.index - 1] === "'") {
+    //     continue;
+    //   }
 
-      // If the word starts with a capital letter (name / acronym), don't mark it
-      if (match[0][0].toLocaleLowerCase() !== match[0][0]) {
-        continue;
-      }
+    //   // If the word starts with a capital letter (name / acronym), don't mark it
+    //   if (match[0][0].toLocaleLowerCase() !== match[0][0]) {
+    //     continue;
+    //   }
 
-      decorations.push(range);
-      if (decorations.length > MAX_MISPELLINGS) {
-        break;
-      }
-    }
+    //   decorations.push(range);
+    //   if (decorations.length > MAX_MISPELLINGS) {
+    //     break;
+    //   }
+    // }
   }
 
   return decorations;
@@ -177,7 +177,7 @@ function onSpellcheckFullDocument(editor) {
   if (value.focusBlock) {
     const text = value.focusBlock.text;
     if (text.length > 80) {
-      AppEnv.spellchecker.provideHintText(text.substr(text.length - 512, 512));
+      // AppEnv.spellchecker.provideHintText(text.substr(text.length - 512, 512));
     }
   }
 
@@ -225,9 +225,9 @@ let timer = null;
 let timerStart = Date.now();
 
 function onChange(change, editor) {
-  if (!AppEnv.config.get('core.composing.spellcheck')) {
-    return;
-  }
+  // if (!AppEnv.config.get('core.composing.spellcheck')) {
+  //   return;
+  // }
   const now = Date.now();
   if (timer && now - timerStart < 200) {
     return;

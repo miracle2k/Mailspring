@@ -172,14 +172,14 @@ export default class ComposerEditor extends React.Component {
     const sel = this.props.value.selection;
     const hasSelectedText = !sel.isCollapsed;
 
-    AppEnv.windowEventHandler.openSpellingMenuFor(word, hasSelectedText, {
-      onCorrect: correction => {
-        this.onChange(this.props.value.change().insertText(correction));
-      },
-      onRestoreSelection: () => {
-        this.onChange(this.props.value.change().select(sel));
-      },
-    });
+    //AppEnv.windowEventHandler.openSpellingMenuFor(word, hasSelectedText, {
+    //  onCorrect: correction => {
+    //    this.onChange(this.props.value.change().insertText(correction));
+    //  },
+    //  onRestoreSelection: () => {
+    //    this.onChange(this.props.value.change().select(sel));
+    //  },
+    //});
   };
 
   onChange = nextValue => {

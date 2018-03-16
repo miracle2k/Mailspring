@@ -112,6 +112,7 @@ export default class KeymapManager {
   }
 
   loadKeymaps = () => {
+    return;
     // Load the base keymap and the base.platform keymap
     this.loadKeymap(path.join(this.resourcePath, 'keymaps', 'base.json'));
     this.loadKeymap(path.join(this.resourcePath, 'keymaps', `base-${process.platform}.json`));

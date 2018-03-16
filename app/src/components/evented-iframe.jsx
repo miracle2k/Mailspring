@@ -218,7 +218,7 @@ class EventedIFrame extends React.Component {
       if (rawHref.startsWith(rootURLForServer('identity'))) {
         const path = rawHref.split(rootURLForServer('identity')).pop();
         IdentityStore.fetchSingleSignOnURL(path, { source: 'SingleSignOnEmail' }).then(href => {
-          AppEnv.windowEventHandler.openLink({ href, metaKey: e.metaKey });
+          // AppEnv.windowEventHandler.openLink({ href, metaKey: e.metaKey });
         });
         return;
       }
@@ -230,7 +230,7 @@ class EventedIFrame extends React.Component {
       // like `e.target instanceof Element` will erroneously return false
       // since the `e.target.constructor` and the `Element` function are
       // created in different contexts.
-      AppEnv.windowEventHandler.openLink({ href: rawHref, metaKey: e.metaKey });
+      // AppEnv.windowEventHandler.openLink({ href: rawHref, metaKey: e.metaKey });
     }
   };
 
@@ -311,7 +311,7 @@ class EventedIFrame extends React.Component {
           new MenuItem({
             label: localized('Compose New Message'),
             click() {
-              AppEnv.windowEventHandler.openLink({ href });
+              // AppEnv.windowEventHandler.openLink({ href });
             },
           })
         );
@@ -328,7 +328,7 @@ class EventedIFrame extends React.Component {
           new MenuItem({
             label: localized('Open Link'),
             click() {
-              AppEnv.windowEventHandler.openLink({ href });
+              // AppEnv.windowEventHandler.openLink({ href });
             },
           })
         );
@@ -353,19 +353,19 @@ class EventedIFrame extends React.Component {
         new MenuItem({
           label: localized('Save Image') + '...',
           click() {
-            AppEnv.showSaveDialog({ defaultPath: srcFilename }, function(path) {
-              if (!path) {
-                return;
-              }
-              const oReq = new XMLHttpRequest();
-              oReq.open('GET', src, true);
-              oReq.responseType = 'arraybuffer';
-              oReq.onload = function() {
-                const buffer = new Buffer(new Uint8Array(oReq.response));
-                fs.writeFile(path, buffer, err => shell.showItemInFolder(path));
-              };
-              oReq.send();
-            });
+            // AppEnv.showSaveDialog({ defaultPath: srcFilename }, function(path) {
+            //   if (!path) {
+            //     return;
+            //   }
+            //   const oReq = new XMLHttpRequest();
+            //   oReq.open('GET', src, true);
+            //   oReq.responseType = 'arraybuffer';
+            //   oReq.onload = function() {
+            //     const buffer = new Buffer(new Uint8Array(oReq.response));
+            //     fs.writeFile(path, buffer, err => shell.showItemInFolder(path));
+            //   };
+            //   oReq.send();
+            // });
           },
         })
       );
@@ -434,7 +434,7 @@ class EventedIFrame extends React.Component {
           new MenuItem({
             label: localized(`Look Up “%@”`, textPreview),
             click() {
-              AppEnv.getCurrentWindow().showDefinitionForSelection();
+              // AppEnv.getCurrentWindow().showDefinitionForSelection();
             },
           })
         );

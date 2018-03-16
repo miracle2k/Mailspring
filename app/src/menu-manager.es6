@@ -82,9 +82,10 @@ export default class MenuManager {
   };
 
   loadPlatformItems() {
-    const menusDirPath = path.join(this.resourcePath, 'menus');
-    const platformMenuPath = fs.resolve(menusDirPath, process.platform, ['js', 'json']);
-    const { menu } = require(platformMenuPath);
+    // const menusDirPath = path.join(this.resourcePath, 'menus');
+    // const platformMenuPath = fs.resolve(menusDirPath, process.platform, ['js', 'json']);
+    // const { menu } = require(platformMenuPath);
+    const { menu } = require('../menus/darwin.json');
     this.add(menu);
   }
 
@@ -128,6 +129,6 @@ export default class MenuManager {
 
   sendToBrowserProcess(template, keystrokesByCommand) {
     const filtered = this.filterMultipleKeystroke(keystrokesByCommand);
-    return ipcRenderer.send('update-application-menu', template, filtered);
+    //return ipcRenderer.send('update-application-menu', template, filtered);
   }
 }

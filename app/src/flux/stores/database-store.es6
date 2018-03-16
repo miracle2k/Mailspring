@@ -3,7 +3,7 @@ import path from 'path';
 import createDebug from 'debug';
 import childProcess from 'child_process';
 import LRU from 'lru-cache';
-import Sqlite3 from 'better-sqlite3';
+//import Sqlite3 from 'better-sqlite3';
 import { remote } from 'electron';
 import { ExponentialBackoffScheduler } from '../../backoff-schedulers';
 
@@ -151,7 +151,7 @@ class DatabaseStore extends MailspringStore {
   }
 
   async open() {
-    this._db = await openDatabase(this._databasePath);
+    //this._db = await openDatabase(this._databasePath);
     this._open = true;
     for (const w of this._waiting) {
       w();
@@ -214,6 +214,8 @@ class DatabaseStore extends MailspringStore {
   // If a query is made before the database has been opened, the query will be
   // held in a queue and run / resolved when the database is ready.
   _query(query, values = [], background = false) {
+    return Promise.resolve([]);
+
     return new Promise(async (resolve, reject) => {
       if (!this._open) {
         this._waiting.push(() => this._query(query, values).then(resolve, reject));
@@ -505,12 +507,33 @@ class DatabaseStore extends MailspringStore {
   //   - resolves with the result of the database query.
   //
   run(modelQuery, options = { format: true }) {
-    return this._query(
-      modelQuery.sql(),
-      [],
-      modelQuery._background,
-      modelQuery._logQueryPlanDebugOutput
-    ).then(result => {
+    // const query = this._query(
+    //   modelQuery.sql(),
+    //   [],
+    //   modelQuery._background,
+    //   modelQuery._logQueryPlanDebugOutput
+    // );
+
+    let data;
+    if (modelQuery._klass.name === 'Folder') {
+      data = [
+        {data: JSON.stringify({
+          __cls: 'Folder',
+          id: 1,
+          aid: 1,
+          role: "something",
+          path: "something",
+          localStatus: null
+        })}
+      ]
+    }
+    else {
+      data = [];
+    }
+
+    const query = Promise.resolve(data);
+
+    return query.then(result => {
       let transformed = modelQuery.inflateResult(result);
       if (options.format !== false) {
         transformed = modelQuery.formatResult(transformed);

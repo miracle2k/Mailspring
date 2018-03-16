@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { shell } from 'electron';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
-import networkErrors from 'chromium-net-errors';
+//import networkErrors from 'chromium-net-errors';
 import { localized } from 'mailspring-exports';
 
 import { rootURLForServer } from '../flux/mailspring-api-request';
@@ -158,8 +158,8 @@ export default class Webview extends React.Component {
       return;
     }
 
-    const e = networkErrors.createByCode(errorCode);
-    const error = localized(`Could not reach %@. %@`, validatedURL, e ? e.message : errorCode);
+    // const e = networkErrors.createByCode(errorCode);
+    const error = `Could not reach ${validatedURL}. ${e ? e.message : errorCode}`;
     this.setState({ ready: false, error: error, webviewLoading: false });
   };
 

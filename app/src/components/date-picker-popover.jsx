@@ -46,9 +46,9 @@ class DatePickerPopover extends Component {
       this._menuComponent.clearSelection();
       this.selectDate(date, 'Custom');
     } else {
-      AppEnv.showErrorDialog(
-        localized(`Sorry, we can't interpret %@ as a valid date.`, inputValue)
-      );
+      //AppEnv.showErrorDialog(
+      //  localized(`Sorry, we can't interpret %@ as a valid date.`, inputValue)
+      //);
     }
   };
 

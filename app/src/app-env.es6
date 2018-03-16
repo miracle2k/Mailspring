@@ -4,7 +4,7 @@ import _ from 'underscore';
 import path from 'path';
 import { ipcRenderer, remote } from 'electron';
 import { Emitter } from 'event-kit';
-import { mapSourcePosition } from 'source-map-support';
+// import { mapSourcePosition } from 'source-map-support';
 import { localized, isRTL } from './intl';
 
 import { APIError } from './flux/errors';
@@ -24,10 +24,18 @@ function ensureInteger(f, fallback) {
 export default class AppEnvConstructor {
   // Returns the load settings hash associated with the current window.
   static getLoadSettings() {
-    if (this.loadSettings == null) {
-      this.loadSettings = JSON.parse(decodeURIComponent(window.location.search.substr(14)));
-    }
-    return this.loadSettings;
+    // if (this.loadSettings == null) {
+    //   this.loadSettings = JSON.parse(decodeURIComponent(window.location.search.substr(14)));
+    // }
+    // return this.loadSettings;
+    return {
+      mainWindow: true,
+      devMode: null, 
+      safeMode: null, 
+      resourcePath: "", 
+      configDirPath: "", 
+      windowType: "default"
+    };
   }
 
   static getCurrentWindow() {
@@ -50,10 +58,6 @@ export default class AppEnvConstructor {
     const { devMode, safeMode, resourcePath, configDirPath, windowType } = this.getLoadSettings();
     const specMode = this.inSpecMode();
 
-    // Add 'src/global/' to module search path.
-    const globalPath = path.join(resourcePath, 'src', 'global');
-    require('module').globalPaths.push(globalPath);
-
     this.loadTime = null;
 
     const Config = require('./config');
@@ -68,9 +72,9 @@ export default class AppEnvConstructor {
     document.body.classList.add(`window-type-${windowType}`);
 
     // Make react.js faster
-    if (!devMode && process.env.NODE_ENV == null) {
-      process.env.NODE_ENV = 'production';
-    }
+    // if (!devMode && process.env.NODE_ENV == null) {
+    //   process.env.NODE_ENV = 'production';
+    // }
 
     // Setup config and load it immediately so it's available to our singletons
     // and doesn't emit events later when it loads
@@ -95,13 +99,13 @@ export default class AppEnvConstructor {
     });
     this.themes.activateThemePackage();
 
-    this.spellchecker = require('./spellchecker').default;
+    //this.spellchecker = require('./spellchecker').default;
     this.menu = new MenuManager({ resourcePath });
     if (process.platform === 'win32') {
       this.getCurrentWindow().setMenuBarVisibility(false);
     }
 
-    this.windowEventHandler = new WindowEventHandler();
+    //this.windowEventHandler = new WindowEventHandler();
 
     // We extend observables with our own methods. This happens on
     // require of mailspring-observables
@@ -116,11 +120,11 @@ export default class AppEnvConstructor {
     // the window starts loading.
     require('mailspring-exports');
 
-    const ActionBridge = require('./flux/action-bridge').default;
-    this.actionBridge = new ActionBridge(ipcRenderer);
+    // const ActionBridge = require('./flux/action-bridge').default;
+    // this.actionBridge = new ActionBridge(ipcRenderer);
 
-    const MailsyncBridge = require('./flux/mailsync-bridge').default;
-    this.mailsyncBridge = new MailsyncBridge();
+    // const MailsyncBridge = require('./flux/mailsync-bridge').default;
+    // this.mailsyncBridge = new MailsyncBridge();
 
     process.title = `Mailspring ${this.getWindowType()}`;
     this.onWindowPropsReceived(() => {
@@ -151,7 +155,7 @@ export default class AppEnvConstructor {
       if (!this.inDevMode()) {
         return this.reportError(originalError, { url, line, column });
       }
-      const { line: newLine, column: newColumn } = mapSourcePosition({ source: url, line, column });
+      // const { line: newLine, column: newColumn } = mapSourcePosition({ source: url, line, column });
       return this.reportError(originalError, { url, line: newLine, column: newColumn });
     };
 
@@ -357,6 +361,8 @@ export default class AppEnvConstructor {
   }
 
   setMinimumWidth(minWidth) {
+    return;
+    
     const win = this.getCurrentWindow();
     const minHeight = win.getMinimumSize()[1];
     win.setMinimumSize(ensureInteger(minWidth, 0), minHeight);
@@ -597,7 +603,7 @@ export default class AppEnvConstructor {
             this.keymaps.loadKeymaps();
             this.menu.update();
 
-            ipcRenderer.send('window-command', 'window:loaded');
+            //ipcRenderer.send('window-command', 'window:loaded');
           });
         });
       });
@@ -606,8 +612,8 @@ export default class AppEnvConstructor {
 
   // Call this method when establishing a real application window.
   async startRootWindow() {
-    this.restoreWindowDimensions();
-    this.getCurrentWindow().setMinimumSize(875, 250);
+    // this.restoreWindowDimensions();
+    // this.getCurrentWindow().setMinimumSize(875, 250);
     await this.startWindow();
   }
 

@@ -55,7 +55,7 @@ export default class MetadataComposerToggleButton extends React.Component {
   }
 
   _isEnabledByDefault() {
-    return AppEnv.config.get(this._configKey()) !== false;
+    // return AppEnv.config.get(this._configKey()) !== false;
   }
 
   async _setEnabled(enabled) {
@@ -69,16 +69,16 @@ export default class MetadataComposerToggleButton extends React.Component {
     } catch (error) {
       const { errorMessage } = this.props;
 
-      AppEnv.config.set(this._configKey(), false);
+      //AppEnv.config.set(this._configKey(), false);
 
-      let title = localized('Error');
-      if (!(error instanceof APIError)) {
-        AppEnv.reportError(error);
-      } else if (error.statusCode === 400) {
-        AppEnv.reportError(error);
-      } else if (MailspringAPIRequest.TimeoutErrorCodes.includes(error.statusCode)) {
-        title = localized('Offline');
-      }
+      //let title = localized('Error');
+      //if (!(error instanceof APIError)) {
+      //  AppEnv.reportError(error);
+      //} else if (error.statusCode === 400) {
+      //  AppEnv.reportError(error);
+      //} else if (MailspringAPIRequest.TimeoutErrorCodes.includes(error.statusCode)) {
+      //  title = localized('Offline');
+      //}
 
       AppEnv.showErrorDialog({ title, message: errorMessage(error) });
     }
@@ -114,7 +114,7 @@ export default class MetadataComposerToggleButton extends React.Component {
       }
     }
 
-    AppEnv.config.set(this._configKey(), nextEnabled);
+    // AppEnv.config.set(this._configKey(), nextEnabled);
     this._setEnabled(nextEnabled);
   };
 

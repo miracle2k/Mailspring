@@ -1,7 +1,7 @@
 /* eslint global-require: 0 */
 const { getMac } = require('getmac');
 const crypto = require('crypto');
-const Raven = require('raven');
+// const Raven = require('raven');
 
 module.exports = class RavenErrorReporter {
   constructor({ inSpecMode, inDevMode, resourcePath }) {
@@ -29,7 +29,7 @@ module.exports = class RavenErrorReporter {
   }
 
   getVersion() {
-    return process.type === 'renderer' ? AppEnv.getVersion() : require('electron').app.getVersion();
+    // return process.type === 'renderer' ? AppEnv.getVersion() : require('electron').app.getVersion();
   }
 
   reportError(err, extra) {
@@ -37,27 +37,27 @@ module.exports = class RavenErrorReporter {
       return;
     }
 
-    Raven.captureException(err, {
-      extra: extra,
-      tags: {
-        platform: process.platform,
-        version: this.getVersion(),
-      },
-    });
+    // Raven.captureException(err, {
+    //   extra: extra,
+    //   tags: {
+    //     platform: process.platform,
+    //     version: this.getVersion(),
+    //   },
+    // });
   }
 
   _setupSentry() {
-    Raven.disableConsoleAlerts();
-    Raven.config(
-      'https://18d04acdd03b4389a36ef7d1d39f8025:5cb2e99bd3634856bfb3711461201439@sentry.io/196829',
-      {
-        name: this.deviceHash,
-        release: this.getVersion(),
-      }
-    ).install();
+    // Raven.disableConsoleAlerts();
+    // Raven.config(
+    //   'https://18d04acdd03b4389a36ef7d1d39f8025:5cb2e99bd3634856bfb3711461201439@sentry.io/196829',
+    //   {
+    //     name: this.deviceHash,
+    //     release: this.getVersion(),
+    //   }
+    // ).install();
 
-    Raven.on('error', e => {
-      console.log(`Raven: ${e.statusCode} - ${e.reason}`);
-    });
+    // Raven.on('error', e => {
+    //   console.log(`Raven: ${e.statusCode} - ${e.reason}`);
+    // });
   }
 };

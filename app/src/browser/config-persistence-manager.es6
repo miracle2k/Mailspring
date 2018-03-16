@@ -24,6 +24,8 @@ export default class ConfigPersistenceManager {
   }
 
   initializeConfigDirectory() {
+    return;
+
     if (!fs.existsSync(this.configDirPath)) {
       fs.makeTreeSync(this.configDirPath);
       const templateConfigDirPath = path.join(this.resourcePath, 'dot-nylas');
@@ -85,6 +87,23 @@ export default class ConfigPersistenceManager {
   }
 
   load() {
+    const json = require('../../dot-nylas/config.json');
+    this.settings = json['*'];
+
+    // Add some settings of the user
+    this.settings['accounts'] = [
+      {
+        id: 1,
+        name: "gmail account",
+        provider: 'no idea',
+        emailAddress: "sdf@sdf.de",
+        settings: {},
+        label: "test",        
+      }
+    ];
+
+    return;
+
     this.userWantsToPreserveErrors = false;
 
     try {
@@ -134,6 +153,8 @@ export default class ConfigPersistenceManager {
   }
 
   save = () => {
+    return;
+
     if (this.userWantsToPreserveErrors) {
       return;
     }
@@ -186,10 +207,10 @@ export default class ConfigPersistenceManager {
   emitChangeEvent = ({ sourceWebcontentsId } = {}) => {
     global.application.config.updateSettings(this.settings);
 
-    BrowserWindow.getAllWindows().forEach(win => {
-      if (win.webContents && win.webContents.getId() !== sourceWebcontentsId) {
-        win.webContents.send('on-config-reloaded', this.settings);
-      }
-    });
+    // BrowserWindow.getAllWindows().forEach(win => {
+    //   if (win.webContents && win.webContents.getId() !== sourceWebcontentsId) {
+    //     win.webContents.send('on-config-reloaded', this.settings);
+    //   }
+    // });
   };
 }
