@@ -22,22 +22,58 @@ for (const dir of packageDirectories) {
     // Load the package.json file
     const json = JSON.parse(fs.readFileSync(path.join(packageDir, 'package.json')).toString());
 
-    //
+    // If there is a main module, load it.
     let requireModuleLine = "null";
     if (json.main) {
       requireModuleLine = `() => require("${path.join(packageDir, json.main)}")`;
     }
+
+    // Load any stylesheets that might exist.
+    const stylesRoot = path.join(packageDir, 'styles');
+    let filenames = [];
+    try {
+      filenames = fs.readdirSync(stylesRoot);
+    }
+    catch(e) {
+      filenames = [];
+    }
+    const index = filenames.find(fn => fn.startsWith('index.'));
+    if (index) {
+      stylesheets = [path.join(stylesRoot, index)];
+    } else {
+      stylesheets = filenames
+        .filter(fn => fn.endsWith('ss'))
+        .map(fn => path.join(stylesRoot, fn));
+    }
+    const styleRequireMap = {};
+    stylesheets.forEach(path => {
+      styleRequireMap[path] = `require("${path}")`
+    });
 
     packageSetCodeLines.push(
 `
 packages["${filename}"] = {
   // Restrict to relevant subset
   'package.json': ${JSON.stringify(json)},
-  'requireModule': ${requireModuleLine}
+  requireModule: ${requireModuleLine},
+  requireStylesheets: () => { return ${buildCodeArray(styleRequireMap)}; },
 }
 `);
   }
 }
+
+
+function buildCodeArray(object) {
+  let assignmentLines = [];
+  Object.keys(object).forEach(key => {
+    const value = object[key];
+    assignmentLines.push(`"${key}": ${value},`);
+  });
+  return `{
+  ${assignmentLines.join('\n')}
+};
+  `
+};
 
 module.exports = module.exports = () => {
   const generatedCode = `

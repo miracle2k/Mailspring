@@ -117,8 +117,8 @@ export default class Package {
   }
 
   loadStylesheets() {
-    if (this.requireStylesheet) {
-      const styles = this.requireStylesheet();
+    if (this.requireStylesheets) {
+      const styles = this.requireStylesheets();
       Object.entries(styles).forEach(([sourcePath, content]) => {
         this.disposables.push(
           AppEnv.styles.addStyleSheet(content, {

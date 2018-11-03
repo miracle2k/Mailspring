@@ -75,7 +75,8 @@ module.exports = {
             loader: "less-loader", // compiles Less to CSS
             options: {
                 paths: [
-                    path.resolve(__dirname + "/app/static/base")
+                    path.resolve(__dirname + "/app/static/base"),
+                    path.resolve(__dirname + "/app/static"),
                 ]
             }
         }]

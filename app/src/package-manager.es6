@@ -40,6 +40,7 @@ export default class PackageManager {
       // TODO: replace with a custom package class
       let p = new Package({json: pkgInfo['package.json']});
       p.requireModule = pkgInfo.requireModule;
+      p.requireStylesheets = pkgInfo.requireStylesheets;
       this.available[p.name] = p;
     });
 
