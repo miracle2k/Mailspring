@@ -30,18 +30,31 @@ export default class PackageManager {
   }
 
   discoverPackages() {
-    let p = new Package({json: require('../internal_packages/ui-light/package.json')});
-    this.available[p.name] = p;
-    
-    p = new Package({json: require('../internal_packages/account-sidebar/package.json')});
-    if (p.json.main) {
-      p.requireModule = () => require('../internal_packages/account-sidebar/lib/main');
-      p.requireStylesheet = () => ({
-        "../internal_packages/account-sidebar/styles/account-sidebar.less": require('../internal_packages/account-sidebar/styles/account-sidebar.less')
-      });
+    // The eval code finds all the files we have to import.
+    // It generates a package structure for each.
+    // The package structure contains `require() calls that webpack can pick up.`
 
-    }
-    this.available[p.name] = p;
+    const allPackageData = require('./discoverPackages.eval');
+    
+    Object.values(allPackageData).forEach(pkgInfo => {
+      // TODO: replace with a custom package class
+      let p = new Package({json: pkgInfo['package.json']});
+      p.requireModule = pkgInfo.requireModule;
+      this.available[p.name] = p;
+    });
+
+    // let p = new Package({json: require('../internal_packages/ui-light/package.json')});
+    // this.available[p.name] = p;
+    
+    // p = new Package({json: require('../internal_packages/account-sidebar/package.json')});
+    // if (p.json.main) {
+    //   p.requireModule = () => require('../internal_packages/account-sidebar/lib/main');
+    //   p.requireStylesheet = () => ({
+    //     "../internal_packages/account-sidebar/styles/account-sidebar.less": require('../internal_packages/account-sidebar/styles/account-sidebar.less')
+    //   });
+
+    // }
+    //this.available[p.name] = p;
 
     return;
 
@@ -172,7 +185,7 @@ export default class PackageManager {
     // check that the path contains a package.json file
     let json = null;
     try {
-      json = require(path.join(packagePath, 'package.json'));
+      //json = require(path.join(packagePath, 'package.json'));
     } catch (err) {
       return callback(
         new Error(
@@ -272,7 +285,7 @@ export default class PackageManager {
           const templatePath = path.join(this.resourcePath, 'static', 'package-template');
           fs.copySync(templatePath, newPackagePath);
 
-          const packageJSON = require(path.join(templatePath, 'package.json'));
+          const packageJSON = null; //require(path.join(templatePath, 'package.json'));
           packageJSON.name = newName;
           packageJSON.engines.mailspring = `>=${AppEnv.getVersion().split('-')[0]}`;
           fs.writeFileSync(

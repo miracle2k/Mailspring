@@ -76,7 +76,15 @@ module.exports = {
                 ]
             }
         }]
-      },
+      },      
+      {
+        test: /\.eval.js$/,
+        use: [
+          {
+            loader: `val-loader`
+          }
+        ]
+      }
       // {
       //   test: /\.(png|jpg|gif)$/,
       //   use: [
