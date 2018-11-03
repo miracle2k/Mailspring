@@ -85,7 +85,7 @@ export default class MenuManager {
     // const menusDirPath = path.join(this.resourcePath, 'menus');
     // const platformMenuPath = fs.resolve(menusDirPath, process.platform, ['js', 'json']);
     // const { menu } = require(platformMenuPath);
-    const { menu } = require('../menus/darwin.json');
+    const { menu } = require('../menus/darwin.js');
     this.add(menu);
   }
 

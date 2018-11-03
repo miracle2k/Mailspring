@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import './promise-extensions';
 
 import '../static/index.less';
 

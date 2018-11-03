@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const React = process.type === 'renderer' ? require('react') : null;
+//const React = process.type === 'renderer' ? require('react') : null;
+const React = require('react');
 
 const RTL_LANGS = [
   'ae' /* Avestan */,
@@ -24,8 +25,9 @@ const RTL_LANGS = [
   'yi' /* 'ייִדיש', Yiddish */,
 ];
 
-const locale =
-  process.type === 'renderer' ? window.navigator.language : require('electron').app.getLocale();
+// const locale =
+//   process.type === 'renderer' ? window.navigator.language : require('electron').app.getLocale();
+const locale = window.navigator.language;
 const lang = locale.split('-')[0] || 'en';
 const langsDir = path.join(__dirname, '..', 'lang');
 
@@ -34,16 +36,16 @@ export let isRTL = false;
 let localizations = {};
 
 // Load localizations for the base language (eg: `zh`)
-if (fs.existsSync(path.join(langsDir, `${lang}.json`))) {
-  localizations = require(path.join(langsDir, `${lang}.json`));
-  isRTL = RTL_LANGS.includes(lang);
-}
+// if (fs.existsSync(path.join(langsDir, `${lang}.json`))) {
+//   localizations = require(path.join(langsDir, `${lang}.json`));
+//   isRTL = RTL_LANGS.includes(lang);
+// }
 
-// Load localizations for the full locale if present (eg: `zh-CN`)
-// and override base localizations with the more specific regional ones.
-if (fs.existsSync(path.join(langsDir, `${locale}.json`))) {
-  localizations = Object.assign(localizations, require(path.join(langsDir, `${locale}.json`)));
-}
+// // Load localizations for the full locale if present (eg: `zh-CN`)
+// // and override base localizations with the more specific regional ones.
+// if (fs.existsSync(path.join(langsDir, `${locale}.json`))) {
+//   localizations = Object.assign(localizations, require(path.join(langsDir, `${locale}.json`)));
+// }
 
 export function localized(en, ...subs) {
   let i = 0;
