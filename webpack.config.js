@@ -1,4 +1,5 @@
 var path = require('path');
+var fs = require('fs');
 var webpack = require('webpack');
 
 const publicPath = path.resolve(__dirname + '/app/static/');
@@ -46,7 +47,9 @@ module.exports = {
         exclude: /(node_modules)/,
         use: [
           {
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            // Workaround, for some reason .babelrc is ignored otherwise.
+            options: JSON.parse(fs.readFileSync(path.resolve(__dirname, './.babelrc'))),
           },
         ]
       },
