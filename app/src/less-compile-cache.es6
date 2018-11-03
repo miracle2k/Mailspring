@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import path from 'path';
-import LessCache from 'less-cache';
+//import LessCache from 'less-cache';
 import rtlcss from 'rtlcss';
 
 import { isRTL } from './intl';

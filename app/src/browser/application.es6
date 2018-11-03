@@ -777,15 +777,15 @@ export default class Application extends EventEmitter {
     }
 
     let bootstrapScript = null;
-    try {
-      bootstrapScript = require.resolve(
-        path.resolve(this.resourcePath, 'spec', 'spec-runner', 'spec-bootstrap')
-      );
-    } catch (error) {
-      bootstrapScript = require.resolve(
-        path.resolve(__dirname, '..', '..', 'spec', 'spec-runner', 'spec-bootstrap')
-      );
-    }
+    // try {
+    //   bootstrapScript = require.resolve(
+    //     path.resolve(this.resourcePath, 'spec', 'spec-runner', 'spec-bootstrap')
+    //   );
+    // } catch (error) {
+    //   bootstrapScript = require.resolve(
+    //     path.resolve(__dirname, '..', '..', 'spec', 'spec-runner', 'spec-bootstrap')
+    //   );
+    // }
 
     // Important: Use .nylas-spec instead of .nylas-mail to avoid overwriting the
     // user's real email config!

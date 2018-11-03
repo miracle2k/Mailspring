@@ -45,6 +45,7 @@ class AutoloadImagesStore extends MailspringStore {
   };
 
   _loadWhitelist = () => {
+    return;
     fs.exists(this._whitelistEmailsPath, exists => {
       if (!exists) {
         return;

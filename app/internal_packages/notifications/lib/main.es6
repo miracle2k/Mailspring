@@ -15,7 +15,7 @@ import UpdateNotification from './items/update-notification';
 
 const notifications = [
   AccountErrorNotification,
-  DefaultClientNotification,
+  //DefaultClientNotification,
   UnstableChannelNotification,
   DevModeNotification,
   PleaseSubscribeNotification,

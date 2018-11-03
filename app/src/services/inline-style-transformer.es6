@@ -12,7 +12,7 @@ class InlineStyleTransformer {
     this._onInlineStylesResult = this._onInlineStylesResult.bind(this);
     this._inlineStylePromises = {};
     this._inlineStyleResolvers = {};
-    ipcRenderer.on('inline-styles-result', this._onInlineStylesResult);
+    //ipcRenderer.on('inline-styles-result', this._onInlineStylesResult);
   }
 
   run(html) {

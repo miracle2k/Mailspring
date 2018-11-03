@@ -1,4 +1,4 @@
-import utf7 from 'utf7';
+//import utf7 from 'utf7';
 import { localized, AccountStore, React, PropTypes } from 'mailspring-exports';
 
 export default class SyncActivity extends React.Component {
@@ -23,7 +23,7 @@ export default class SyncActivity extends React.Component {
       }
     }
 
-    const folderDisplayPath = utf7.imap.decode(folderPath);
+    const folderDisplayPath = folderPath; //utf7.imap.decode(folderPath);
 
     return (
       <div className={`folder-progress ${status}`} key={folderPath}>

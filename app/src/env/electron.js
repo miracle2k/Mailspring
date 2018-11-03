@@ -1,9 +1,9 @@
-const ipcRenderer = {
+export const ipcRenderer = {
   send() {},
   on() {},
 };
 
-const remote = {
+export const remote = {
   getCurrentWindow() {},
   app: {
     quit() {},

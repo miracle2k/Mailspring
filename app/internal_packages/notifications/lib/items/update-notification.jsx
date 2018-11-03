@@ -7,7 +7,7 @@ export default class UpdateNotification extends React.Component {
 
   constructor() {
     super();
-    this.state = this.getStateFromStores();
+    //this.state = this.getStateFromStores();
   }
 
   componentDidMount() {
@@ -40,6 +40,7 @@ export default class UpdateNotification extends React.Component {
   };
 
   render() {
+    return null;
     const { updateAvailable, version, updateIsManual } = this.state;
 
     if (!updateAvailable) {

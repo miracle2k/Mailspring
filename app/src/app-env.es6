@@ -875,7 +875,7 @@ export default class AppEnvConstructor {
   // Also see logic in browser/MailspringWindow::handleEvents where we listen
   // to the browserWindow.on 'close' event to catch "unclosable" windows.
   onBeforeUnload(callback) {
-    return this.windowEventHandler.addUnloadCallback(callback);
+    //return this.windowEventHandler.addUnloadCallback(callback);
   }
 
   onReadyToUnload(callback) {

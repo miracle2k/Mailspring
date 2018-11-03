@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import { Account, IdentityStore, MailsyncProcess } from 'mailspring-exports';
 import MailspringProviderSettings from './mailspring-provider-settings';
 import MailcoreProviderSettings from './mailcore-provider-settings';
-import dns from 'dns';
+//import dns from 'dns';
 
 export const LOCAL_SERVER_PORT = 12141;
 export const LOCAL_REDIRECT_URI = `http://127.0.0.1:${LOCAL_SERVER_PORT}`;

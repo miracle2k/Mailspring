@@ -4,7 +4,8 @@ import { BadgeStore } from 'mailspring-exports';
 
 // Must be absolute real system path
 // https://github.com/atom/electron/issues/1299
-const { platform } = process;
+//const { platform } = process;
+const platform = 'web';
 const INBOX_ZERO_ICON = path.join(__dirname, '..', 'assets', platform, 'MenuItem-Inbox-Zero.png');
 const INBOX_UNREAD_ICON = path.join(__dirname, '..', 'assets', platform, 'MenuItem-Inbox-Full.png');
 const INBOX_UNREAD_ALT_ICON = path.join(

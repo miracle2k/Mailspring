@@ -76,20 +76,20 @@ lazyLoad(`ObservableListDataSource`, () => require('../flux/stores/observable-li
 lazyLoad(`MutableQuerySubscription`, () => require('../flux/models/mutable-query-subscription'));
 
 // Database Objects
-// exports.DatabaseObjectRegistry = DatabaseObjectRegistry;
-// lazyLoad(`Model`, 'flux/models/model');
-// lazyLoad(`Attributes`, 'flux/attributes');
-// lazyLoadAndRegisterModel(`File`, 'file');
-// lazyLoadAndRegisterModel(`Event`, 'event');
-// lazyLoadAndRegisterModel(`Label`, 'label');
+exports.DatabaseObjectRegistry = DatabaseObjectRegistry;
+lazyLoad(`Model`, () => require('../flux/models/model'));
+lazyLoad(`Attributes`, () => require('../flux/attributes'));
+lazyLoadAndRegisterModel(`File`, () => require('../flux/models/file'));
+lazyLoadAndRegisterModel(`Event`, () => require('../flux/models/event'));
+lazyLoadAndRegisterModel(`Label`, () => require('../flux/models/label'));
 lazyLoadAndRegisterModel(`Folder`, () => require('../flux/models/folder'));
-// lazyLoadAndRegisterModel(`Thread`, 'thread');
+lazyLoadAndRegisterModel(`Thread`, () => require('../flux/models/thread'));
 lazyLoadAndRegisterModel(`Account`, () => require('../flux/models/account'));
-// lazyLoadAndRegisterModel(`Message`, 'message');
-// lazyLoadAndRegisterModel(`Contact`, 'contact');
-// lazyLoadAndRegisterModel(`Category`, 'category');
-// lazyLoadAndRegisterModel(`Calendar`, 'calendar');
-// lazyLoadAndRegisterModel(`ProviderSyncbackRequest`, 'provider-syncback-request');
+lazyLoadAndRegisterModel(`Message`, () => require('../flux/models/message'));
+lazyLoadAndRegisterModel(`Contact`, () => require('../flux/models/contact'));
+lazyLoadAndRegisterModel(`Category`, () => require('../flux/models/category'));
+lazyLoadAndRegisterModel(`Calendar`, () => require('../flux/models/calendar'));
+lazyLoadAndRegisterModel(`ProviderSyncbackRequest`, () => require('../flux/models/provider-syncback-request'));
 
 // Search Query Interfaces
 // lazyLoad(`SearchQueryAST`, 'services/search/search-query-ast');
@@ -155,12 +155,12 @@ load(`SearchableComponentStore`, () => require('../flux/stores/searchable-compon
 lazyLoad(`ServiceRegistry`, () => require(`../registries/service-registry`));
 
 // Decorators
-//lazyLoad(`InflatesDraftClientId`, 'decorators/inflates-draft-client-id');
+lazyLoad(`InflatesDraftClientId`, () => require('../decorators/inflates-draft-client-id'));
 
 // Extensions
-// lazyLoad(`ExtensionRegistry`, 'registries/extension-registry');
-// lazyLoad(`MessageViewExtension`, 'extensions/message-view-extension');
-// lazyLoad(`ComposerExtension`, 'extensions/composer-extension');
+lazyLoad(`ExtensionRegistry`, () => require(`../registries/extension-registry`));
+lazyLoad(`MessageViewExtension`, () => require('../extensions/message-view-extension'));
+lazyLoad(`ComposerExtension`, () => require('../extensions/composer-extension'));
 
 // 3rd party libraries
 lazyLoadWithGetter(`Rx`, () => require('rx-lite'));
@@ -186,7 +186,7 @@ lazyLoad(`MessageUtils`, () => require('../flux/models/message-utils'));
 
 // Services
 // lazyLoad(`KeyManager`, 'key-manager');
-// lazyLoad(`SoundRegistry`, 'registries/sound-registry');
+lazyLoad(`SoundRegistry`, () => require('../registries/sound-registry'));
 // lazyLoad(`MailRulesTemplates`, 'mail-rules-templates');
 // lazyLoad(`MailRulesProcessor`, 'mail-rules-processor');
 lazyLoad(`MailboxPerspective`, () => require('../mailbox-perspective'));
@@ -194,7 +194,15 @@ lazyLoad(`MailboxPerspective`, () => require('../mailbox-perspective'));
 // lazyLoad(`SanitizeTransformer`, 'services/sanitize-transformer');
 // lazyLoad(`QuotedHTMLTransformer`, 'services/quoted-html-transformer');
 // lazyLoad(`InlineStyleTransformer`, 'services/inline-style-transformer');
-// lazyLoad(`SearchableComponentMaker`, 'searchable-components/searchable-component-maker');
+lazyLoad(`SearchableComponentMaker`, () => require('../searchable-components/searchable-component-maker'));
+
+
+// Process Internals
+lazyLoad(`DefaultClientHelper`, () => require('../default-client-helper'));
+//lazyLoad(`SystemStartService`, 'system-start-service');
+
+// Testing
+//lazyLoadWithGetter(`MailspringTestUtils`, () => require('../../spec/mailspring-test-utils'));
 
 // Errors
 lazyLoadWithGetter(`APIError`, () => require('../flux/errors').APIError);

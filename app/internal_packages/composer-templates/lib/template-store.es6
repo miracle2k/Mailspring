@@ -34,6 +34,7 @@ class TemplateStore extends MailspringStore {
 
     // I know this is a bit of pain but don't do anything that
     // could possibly slow down app launch
+    return;
     fs.exists(this._templatesDir, exists => {
       if (exists) {
         this._populate();

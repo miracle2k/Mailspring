@@ -2,8 +2,8 @@ import MailspringStore from 'mailspring-store';
 import { remote } from 'electron';
 import { makeRequest } from '../mailspring-api-request';
 
-const autoUpdater = remote.getGlobal('application').autoUpdateManager;
-const preferredChannel = autoUpdater.preferredChannel;
+//const autoUpdater = remote.getGlobal('application').autoUpdateManager;
+//const preferredChannel = autoUpdater.preferredChannel;
 
 class UpdateChannelStore extends MailspringStore {
   constructor() {

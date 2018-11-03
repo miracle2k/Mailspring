@@ -248,4 +248,4 @@ export class Mac {
 export default 
   process.platform === 'darwin' ? Mac : 
   process.platform === 'linux' ? Linux : 
-  process.platform === 'win32' ? Windows : null;
+  process.platform === 'win32' ? Windows : Mac;
