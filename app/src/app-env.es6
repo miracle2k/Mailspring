@@ -124,8 +124,8 @@ export default class AppEnvConstructor {
     // const ActionBridge = require('./flux/action-bridge').default;
     // this.actionBridge = new ActionBridge(ipcRenderer);
 
-    // const MailsyncBridge = require('./flux/mailsync-bridge').default;
-    // this.mailsyncBridge = new MailsyncBridge();
+    const MailsyncBridge = require('./flux/mailsync-bridge').default;
+    this.mailsyncBridge = new MailsyncBridge();
 
     process.title = `Mailspring ${this.getWindowType()}`;
     this.onWindowPropsReceived(() => {

@@ -98,28 +98,28 @@ class CrashTracker {
 
 export default class MailsyncBridge {
   constructor() {
-    if (!AppEnv.isMainWindow() || AppEnv.inSpecMode()) {
-      ipcRenderer.on('mailsync-bridge-message', this._onIncomingRebroadcastMessage);
-      return;
-    }
+    // if (!AppEnv.isMainWindow() || AppEnv.inSpecMode()) {
+    //   ipcRenderer.on('mailsync-bridge-message', this._onIncomingRebroadcastMessage);
+    //   return;
+    // }
 
     Actions.queueTask.listen(this._onQueueTask, this);
     Actions.queueTasks.listen(this._onQueueTasks, this);
     Actions.cancelTask.listen(this._onCancelTask, this);
     Actions.fetchBodies.listen(this._onFetchBodies, this);
 
-    this._crashTracker = new CrashTracker();
-    this._clients = {};
+    // this._crashTracker = new CrashTracker();
+    // this._clients = {};
 
-    AccountStore.listen(this.ensureClients, this);
-    OnlineStatusStore.listen(this._onOnlineStatusChanged, this);
+    // AccountStore.listen(this.ensureClients, this);
+    // OnlineStatusStore.listen(this._onOnlineStatusChanged, this);
 
-    AppEnv.onBeforeUnload(this._onBeforeUnload);
-    AppEnv.onReadyToUnload(this._onReadyToUnload);
+    // AppEnv.onBeforeUnload(this._onBeforeUnload);
+    // AppEnv.onReadyToUnload(this._onReadyToUnload);
 
-    process.nextTick(() => {
-      this.ensureClients();
-    });
+    // process.nextTick(() => {
+    //   this.ensureClients();
+    // });
   }
 
   // Public
@@ -191,6 +191,7 @@ export default class MailsyncBridge {
   }
 
   sendMessageToAccount(accountId, json) {
+    return;
     if (!this._clients[accountId]) {
       const { emailAddress } = AccountStore.accountForId(accountId) || {};
       return AppEnv.showErrorDialog({
