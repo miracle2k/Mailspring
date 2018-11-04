@@ -1,3 +1,6 @@
+#### webpack and browser output
+/build
+
 ##### Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml

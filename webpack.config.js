@@ -1,11 +1,8 @@
 var path = require('path');
 var fs = require('fs');
 var webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const publicPath = path.resolve(__dirname + '/app/static/');
-const contentBase = publicPath;
-const port = 8000;
-const host = '0.0.0.0';
 
 module.exports = {
   entry: [
@@ -19,7 +16,10 @@ module.exports = {
       'process.env': {
         NODE_ENV: '"development"'
       }
-    })
+    }),
+
+    // Will generate an index.html file for us.
+    new HtmlWebpackPlugin()
   ],
     
   resolve: {
@@ -41,7 +41,7 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(js|jsx|es6)$/,
         exclude: /(node_modules)/,
@@ -106,15 +106,21 @@ module.exports = {
   },
 
   output: {
-    path: publicPath,
+    path: path.resolve(__dirname + '/build/'),
     filename: 'bundle.js',
     sourceMapFilename: 'bundle.map'
   },
 
   devServer: {
-    port,
-    host,
-    contentBase,
+    port: 8000,
+    host: '0.0.0.0',
+
+    // devserver serves bundles at root, say /bundle.js
+    publicPath: '/',
+
+    // Does not serve any other static content:
+    contentBase: false,
+
     open: false,
     clientLogLevel: 'warning',
     historyApiFallback: true,

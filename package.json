@@ -73,6 +73,7 @@
     "file-loader": "^1.1.11",
     "glob": "7.x.x",
     "handlebars": "^4.0.10",
+    "html-webpack-plugin": "^4.0.0-beta.2",
     "joanna": "0.0.9",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
@@ -85,8 +86,9 @@
     "targz": "^1.0.1",
     "temp": "0.8.x",
     "underscore": "1.8.x",
-    "webpack": "3.10.0",
-    "webpack-dev-server": "2.9.7"
+    "webpack": "^4.24.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
   },
   "author": "AW",
   "license": "ISC"
