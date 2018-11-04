@@ -26,7 +26,7 @@ class TipsStoreCls extends MailspringStore {
   }
 
   isTipVisible(key) {
-    // const seen = AppEnv.config.get('core.tutorial.seen') || [];
+    const seen = AppEnv.config.get('core.tutorial.seen') || [];
     return this._tipKeys.find(t => !seen.includes(t)) === key;
   }
 

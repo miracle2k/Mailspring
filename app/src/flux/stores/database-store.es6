@@ -527,7 +527,76 @@ class DatabaseStore extends MailspringStore {
         })}
       ]
     }
+    else if (modelQuery._klass.name === 'Label') {
+      data = [
+        {data: JSON.stringify({
+          __cls: 'Label',
+          id: 3,
+          aid: 3,
+          role: "a label",
+          path: "label",
+          localStatus: null
+        })}
+      ]
+    }
+    else if (modelQuery._klass.name === 'Task') {
+      data = [
+        {data: JSON.stringify({
+          __cls: 'Task',
+          status: 'local',
+          source: 'source',
+          error: "error",
+          version: "verison",
+        })}
+      ]
+    }
+    else if (modelQuery._klass.name === 'Thread') {
+      data = [
+        {data: JSON.stringify({
+          __cls: 'Thread',
+          metadataForPluginId: {},
+          id: 99,
+          subject: "Test",
+          lastMessageSentTimestamp: new Date(),
+          lastMessageReceivedTimestamp: new Date(),
+          participants: [
+            {
+              __cls: 'Contact',
+              id: 1,
+              name: "Michael",
+            }
+          ]
+        })}
+      ]
+    }
+    else if (modelQuery._klass.name === 'Message') {
+      data = [
+        {data: JSON.stringify({
+          __cls: 'Message',
+          metadataForPluginId: {},
+          id: 999,
+          threadId: 99,
+          subject: "Test",
+          unread: true,
+          folder: {
+            __cls: 'Folder',
+            id: 1,
+            aid: 1,
+            role: "something",
+            path: "something",
+            localStatus: null
+          },
+          date: new Date(),
+          body: {
+            __cls: 'MessageBody',
+            id: 1,
+            value: 'test'
+          },
+        })}
+      ]
+    }
     else {
+      console.log('cannot answer queryf for ', modelQuery._klass.name, modelQuery)
       data = [];
     }
 

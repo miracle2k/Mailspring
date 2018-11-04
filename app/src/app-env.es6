@@ -34,7 +34,8 @@ export default class AppEnvConstructor {
       safeMode: null, 
       resourcePath: "", 
       configDirPath: "", 
-      windowType: "default"
+      windowType: "default",
+      toolbar: true
     };
   }
 

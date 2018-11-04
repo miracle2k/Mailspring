@@ -61,7 +61,7 @@ class AttachmentStore extends MailspringStore {
 
     this._filePreviewPaths = {};
     this._filesDirectory = path.join(AppEnv.getConfigDirPath(), 'files');
-    mkdirp(this._filesDirectory);
+    //mkdirp(this._filesDirectory);
   }
 
   // Returns a path on disk for saving the file. Note that we must account

@@ -49,7 +49,7 @@ const lazyLoadAndRegisterModel = (klassName, path) => {
 };
 
 const lazyLoadAndRegisterTask = (klassName, path) => {
-  lazyLoad(klassName, `flux/tasks/${path}`);
+  lazyLoad(klassName, path);
   DatabaseObjectRegistry.register(klassName, () => exports[klassName]);
 };
 
@@ -98,9 +98,9 @@ lazyLoadAndRegisterModel(`ProviderSyncbackRequest`, () => require('../flux/model
 
 // Tasks
 // lazyLoad(`TaskFactory`, 'flux/tasks/task-factory');
-// lazyLoadAndRegisterTask(`Task`, 'task');
+lazyLoadAndRegisterTask(`Task`, () => require('../flux/tasks/task'));
 // lazyLoadAndRegisterTask(`EventRSVPTask`, 'event-rsvp-task');
-// lazyLoadAndRegisterTask(`SendDraftTask`, 'send-draft-task');
+lazyLoadAndRegisterTask(`SendDraftTask`, () => require('../flux/tasks/send-draft-task'));
 // lazyLoadAndRegisterTask(`ChangeMailTask`, 'change-mail-task');
 // lazyLoadAndRegisterTask(`DestroyDraftTask`, 'destroy-draft-task');
 // lazyLoadAndRegisterTask(`ChangeLabelsTask`, 'change-labels-task');
@@ -111,7 +111,7 @@ lazyLoadAndRegisterModel(`ProviderSyncbackRequest`, () => require('../flux/model
 // lazyLoadAndRegisterTask(`ChangeStarredTask`, 'change-starred-task');
 // lazyLoadAndRegisterTask(`SyncbackEventTask`, 'syncback-event-task');
 // lazyLoadAndRegisterTask(`DestroyCategoryTask`, 'destroy-category-task');
-// lazyLoadAndRegisterTask(`SyncbackCategoryTask`, 'syncback-category-task');
+lazyLoadAndRegisterTask(`SyncbackCategoryTask`,  () => require('../flux/tasks/syncback-category-task'));
 // lazyLoadAndRegisterTask(`SyncbackMetadataTask`, 'syncback-metadata-task');
 // lazyLoadAndRegisterTask(`GetMessageRFC2822Task`, 'get-message-rfc2822-task');
 // lazyLoadAndRegisterTask(`ExpungeAllInFolderTask`, 'expunge-all-in-folder-task');
