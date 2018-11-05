@@ -221,9 +221,7 @@ module.exports = Utils = {
     return id.slice(0, 6) === 'local-';
   },
 
-  imageNamed(fullname, resourcePath) {
-    return fullname;
-    
+  imageNamed(fullname, resourcePath) {    
     const [name, ext] = fullname.split('.');
 
     if (DefaultResourcePath == null) {
@@ -233,10 +231,11 @@ module.exports = Utils = {
       resourcePath = DefaultResourcePath;
     }
 
-    if (!imageData) {
-      imageData = AppEnv.fileListCache().imageData || '{}';
-      Utils.images = JSON.parse(imageData) || {};
-    }
+    // Here we copy the cache from the backend process to the window process
+    // if (!imageData) {
+    //   imageData = AppEnv.fileListCache().imageData || '{}';
+    //   Utils.images = JSON.parse(imageData) || {};
+    // }
 
     if (!Utils.images || !Utils.images[resourcePath]) {
       if (Utils.images == null) {
@@ -245,17 +244,17 @@ module.exports = Utils = {
       if (Utils.images[resourcePath] == null) {
         Utils.images[resourcePath] = {};
       }
-      const imagesPath = path.join(resourcePath, 'static', 'images');
-      const files = fs.listTreeSync(imagesPath);
-      for (let file of files) {
+      // const imagesPath = path.join(resourcePath, 'static', 'images');
+      // const files = fs.listTreeSync(imagesPath);
+      for (let file of Utils.allImageContext.keys()) {
         // On Windows, we get paths like C:\images\compose.png, but
         // Chromium doesn't accept the backward slashes. Convert to
         // C:/images/compose.png
         file = file.replace(/\\/g, '/');
         const basename = path.basename(file);
-        Utils.images[resourcePath][basename] = file;
+        Utils.images[resourcePath][basename] = Utils.allImageContext(file);
       }
-      AppEnv.fileListCache().imageData = JSON.stringify(Utils.images);
+      //AppEnv.fileListCache().imageData = JSON.stringify(Utils.images);
     }
 
     const plat = process.platform != null ? process.platform : '';

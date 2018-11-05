@@ -116,7 +116,9 @@ class RetinaImg extends React.Component {
   render() {
     const path =
       this.props.url || this._pathFor(this.props.name) || this._pathFor(this.props.fallback) || '';
-    const pathIsRetina = path.indexOf('@2x') > 0;
+    // Because wepack mangles the filenames we cannot detect this.
+    // We can fix this, but we should use srcset instead, and so should electron, arguably.
+    const pathIsRetina = true; //path.indexOf('@2x') > 0;
     let className = this.props.className || '';
 
     const style = this.props.style || {};

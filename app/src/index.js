@@ -1,10 +1,19 @@
 import 'babel-polyfill';
 import './promise-extensions';
 
-import '../static/index.less';
-
 import Application from './browser/application';
 import AppEnv from './app-env';
+
+// pull in static files
+//
+// the global stylehseet
+import '../static/index.less';
+
+// all images
+const allImages = require.context('../static', true, /\.png$/);
+import Utils from './flux/models/utils';
+Utils.allImageContext = allImages;
+
 
 // browser/main.js
 
