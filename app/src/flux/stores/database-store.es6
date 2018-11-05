@@ -559,6 +559,8 @@ class DatabaseStore extends MailspringStore {
           subject: "Test",
           lastMessageSentTimestamp: new Date(),
           lastMessageReceivedTimestamp: new Date(),
+          folders: [],
+          labels: [],
           participants: [
             {
               __cls: 'Contact',
