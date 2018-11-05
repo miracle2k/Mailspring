@@ -29,4 +29,16 @@ export const remote = {
     showSaveDialog() {},
     showMessageBox() {},
   },
+  Menu: {
+    buildFromTemplate() {
+      return new Menu();
+    }
+  }
 };
+
+
+class Menu {
+  popup() {
+    console.log('popup something')
+  }
+}

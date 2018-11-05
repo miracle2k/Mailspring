@@ -128,9 +128,7 @@ class LaunchSystemStartItem extends React.Component {
 const WorkspaceSection = props => {
   return (
     <section>
-      <DefaultMailClientItem />
 
-      <LaunchSystemStartItem />
 
       <ConfigSchemaItem
         configSchema={props.configSchema.properties.workspace.properties.systemTray}

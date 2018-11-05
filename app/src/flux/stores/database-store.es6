@@ -514,6 +514,8 @@ class DatabaseStore extends MailspringStore {
     //   modelQuery._logQueryPlanDebugOutput
     // );
 
+    const moment = require('moment');
+
     let data;
     if (modelQuery._klass.name === 'Folder') {
       data = [
