@@ -9,6 +9,8 @@ module.exports = {
     "./app/src/index.js",
   ],
 
+  mode: 'development',
+
   devtool: 'eval',
 
   plugins: [
