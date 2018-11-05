@@ -1,10 +1,18 @@
+const fakeWindow = {
+  setSheetOffset() {
+    // https://electronjs.org/docs/api/dialog#sheets
+  }
+}
+
 export const ipcRenderer = {
   send() {},
   on() {},
 };
 
 export const remote = {
-  getCurrentWindow() {},
+  getCurrentWindow() {
+    return fakeWindow;
+  },
   app: {
     quit() {},
     emit() {},
