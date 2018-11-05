@@ -88,20 +88,21 @@ module.exports = {
             loader: `val-loader`
           }
         ]
-      }
-      // {
-      //   test: /\.(png|jpg|gif)$/,
-      //   use: [
-      //     {
-      //       loader: 'file-loader',
-      //       options: {
-      //           paths: [
-      //               path.resolve(__dirname + "/app")
-      //           ]
-      //       }  
-      //     }
-      //   ]
-      // },
+      },
+      
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+                paths: [
+                    path.resolve(__dirname + "/app")
+                ]
+            }  
+          }
+        ]
+      },
     ],
   },
 

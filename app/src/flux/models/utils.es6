@@ -222,7 +222,7 @@ module.exports = Utils = {
   },
 
   imageNamed(fullname, resourcePath) {
-    return null;
+    return fullname;
     
     const [name, ext] = fullname.split('.');
 
