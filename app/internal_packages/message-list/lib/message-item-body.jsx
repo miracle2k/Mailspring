@@ -27,7 +27,6 @@ class ConditionalQuotedTextControl extends React.Component {
   }
 
   render() {
-    return "DIABLED!";
     if (!QuotedHTMLTransformer.hasQuotedHTML(this.props.body)) {
       return null;
     }

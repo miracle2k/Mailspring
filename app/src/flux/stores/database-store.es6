@@ -534,7 +534,7 @@ class DatabaseStore extends MailspringStore {
         {data: JSON.stringify({
           __cls: 'Label',
           id: 3,
-          aid: 3,
+          aid: 1,
           role: "a label",
           path: "label",
           localStatus: null
@@ -545,10 +545,11 @@ class DatabaseStore extends MailspringStore {
       data = [
         {data: JSON.stringify({
           __cls: 'Task',
+          aid: 1,
           status: 'local',
           source: 'source',
           error: "error",
-          version: "verison",
+          version: "version",
         })}
       ]
     }
@@ -558,9 +559,10 @@ class DatabaseStore extends MailspringStore {
           __cls: 'Thread',
           metadataForPluginId: {},
           id: 99,
+          aid: 1,
           subject: "Test",
-          lastMessageSentTimestamp: new Date(),
-          lastMessageReceivedTimestamp: new Date(),
+          lastMessageSentTimestamp: new Date().toISOString(),
+          lastMessageReceivedTimestamp: new Date().toISOString(),
           folders: [],
           labels: [],
           participants: [
@@ -575,10 +577,13 @@ class DatabaseStore extends MailspringStore {
     }
     else if (modelQuery._klass.name === 'Message') {
       data = [
-        {data: JSON.stringify({
+        {
+          body: `Email content`,
+          data: JSON.stringify({
           __cls: 'Message',
           metadataForPluginId: {},
           id: 999,
+          aid: 1,
           threadId: 99,
           subject: "Test",
           unread: true,
@@ -590,12 +595,7 @@ class DatabaseStore extends MailspringStore {
             path: "something",
             localStatus: null
           },
-          date: new Date(),
-          body: {
-            __cls: 'MessageBody',
-            id: 1,
-            value: 'test'
-          },
+          date: new Date().toISOString(),          
         })}
       ]
     }

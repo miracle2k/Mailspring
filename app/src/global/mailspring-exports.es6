@@ -97,26 +97,26 @@ lazyLoadAndRegisterModel(`ProviderSyncbackRequest`, () => require('../flux/model
 // lazyLoad(`IMAPSearchQueryBackend`, 'services/search/search-query-backend-imap');
 
 // Tasks
-// lazyLoad(`TaskFactory`, 'flux/tasks/task-factory');
+lazyLoad(`TaskFactory`, () => require('../flux/tasks/task-factory'));
 lazyLoadAndRegisterTask(`Task`, () => require('../flux/tasks/task'));
-// lazyLoadAndRegisterTask(`EventRSVPTask`, 'event-rsvp-task');
+lazyLoadAndRegisterTask(`EventRSVPTask`, () => require('../flux/tasks/event-rsvp-task'));
 lazyLoadAndRegisterTask(`SendDraftTask`, () => require('../flux/tasks/send-draft-task'));
-// lazyLoadAndRegisterTask(`ChangeMailTask`, 'change-mail-task');
-// lazyLoadAndRegisterTask(`DestroyDraftTask`, 'destroy-draft-task');
-// lazyLoadAndRegisterTask(`ChangeLabelsTask`, 'change-labels-task');
-// lazyLoadAndRegisterTask(`ChangeFolderTask`, 'change-folder-task');
-// lazyLoadAndRegisterTask(`ChangeUnreadTask`, 'change-unread-task');
-// lazyLoadAndRegisterTask(`DestroyModelTask`, 'destroy-model-task');
-// lazyLoadAndRegisterTask(`SyncbackDraftTask`, 'syncback-draft-task');
-// lazyLoadAndRegisterTask(`ChangeStarredTask`, 'change-starred-task');
-// lazyLoadAndRegisterTask(`SyncbackEventTask`, 'syncback-event-task');
-// lazyLoadAndRegisterTask(`DestroyCategoryTask`, 'destroy-category-task');
+lazyLoadAndRegisterTask(`ChangeMailTask`, () => require('../flux/tasks/change-mail-task'));
+lazyLoadAndRegisterTask(`DestroyDraftTask`, () => require('../flux/tasks/destroy-draft-task'));
+lazyLoadAndRegisterTask(`ChangeLabelsTask`, () => require('../flux/tasks/change-labels-task'));
+lazyLoadAndRegisterTask(`ChangeFolderTask`, () => require('../flux/tasks/change-folder-task'));
+lazyLoadAndRegisterTask(`ChangeUnreadTask`, () => require('../flux/tasks/change-unread-task'));
+lazyLoadAndRegisterTask(`DestroyModelTask`, () => require('../flux/tasks/destroy-model-task'));
+lazyLoadAndRegisterTask(`SyncbackDraftTask`, () => require('../flux/tasks/syncback-draft-task'));
+lazyLoadAndRegisterTask(`ChangeStarredTask`, () => require('../flux/tasks/change-starred-task'));
+lazyLoadAndRegisterTask(`SyncbackEventTask`, () => require('../flux/tasks/syncback-event-task'));
+lazyLoadAndRegisterTask(`DestroyCategoryTask`, () => require('../flux/tasks/destroy-category-task'));
 lazyLoadAndRegisterTask(`SyncbackCategoryTask`,  () => require('../flux/tasks/syncback-category-task'));
-// lazyLoadAndRegisterTask(`SyncbackMetadataTask`, 'syncback-metadata-task');
-// lazyLoadAndRegisterTask(`GetMessageRFC2822Task`, 'get-message-rfc2822-task');
-// lazyLoadAndRegisterTask(`ExpungeAllInFolderTask`, 'expunge-all-in-folder-task');
-// lazyLoadAndRegisterTask(`ChangeRoleMappingTask`, 'change-role-mapping-task');
-// lazyLoadAndRegisterTask(`SendFeatureUsageEventTask`, 'send-feature-usage-event-task');
+lazyLoadAndRegisterTask(`SyncbackMetadataTask`, () => require('../flux/tasks/syncback-metadata-task'));
+lazyLoadAndRegisterTask(`GetMessageRFC2822Task`, () => require('../flux/tasks/get-message-rfc2822-task'));
+lazyLoadAndRegisterTask(`ExpungeAllInFolderTask`, () => require('../flux/tasks/expunge-all-in-folder-task'));
+lazyLoadAndRegisterTask(`ChangeRoleMappingTask`, () => require('../flux/tasks/change-role-mapping-task'));
+lazyLoadAndRegisterTask(`SendFeatureUsageEventTask`, () => require('../flux/tasks/send-feature-usage-event-task'));
 
 // Stores
 // These need to be required immediately since some Stores are
@@ -192,7 +192,7 @@ lazyLoad(`SoundRegistry`, () => require('../registries/sound-registry'));
 lazyLoad(`MailboxPerspective`, () => require('../mailbox-perspective'));
 // lazyLoad(`NativeNotifications`, 'native-notifications');
 // lazyLoad(`SanitizeTransformer`, 'services/sanitize-transformer');
-// lazyLoad(`QuotedHTMLTransformer`, 'services/quoted-html-transformer');
+lazyLoad(`QuotedHTMLTransformer`, () => require('../services/quoted-html-transformer'));
 // lazyLoad(`InlineStyleTransformer`, 'services/inline-style-transformer');
 lazyLoad(`SearchableComponentMaker`, () => require('../searchable-components/searchable-component-maker'));
 
