@@ -9,6 +9,7 @@ import { localized, isRTL } from './intl';
 
 import { APIError } from './flux/errors';
 import WindowEventHandler from './window-event-handler';
+import { NylasEmailBackend } from './backends/mail-nylas';
 
 function ensureInteger(f, fallback) {
   let int = f;
@@ -123,6 +124,8 @@ export default class AppEnvConstructor {
 
     // const ActionBridge = require('./flux/action-bridge').default;
     // this.actionBridge = new ActionBridge(ipcRenderer);
+
+    this.backend = new NylasEmailBackend(window.token);
 
     const MailsyncBridge = require('./flux/mailsync-bridge').default;
     this.mailsyncBridge = new MailsyncBridge();

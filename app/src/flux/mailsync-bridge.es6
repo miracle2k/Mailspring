@@ -192,6 +192,9 @@ export default class MailsyncBridge {
 
   sendMessageToAccount(accountId, json) {
     console.log(accountId, json);
+
+    AppEnv.backend.handleTask(json.task);
+
     return;
     if (!this._clients[accountId]) {
       const { emailAddress } = AccountStore.accountForId(accountId) || {};
