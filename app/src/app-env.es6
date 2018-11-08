@@ -10,6 +10,7 @@ import { localized, isRTL } from './intl';
 import { APIError } from './flux/errors';
 import WindowEventHandler from './window-event-handler';
 import { NylasEmailBackend } from './backends/mail-nylas';
+import { FakeEmailBackend } from './backends/mail-fake';
 
 function ensureInteger(f, fallback) {
   let int = f;
@@ -129,7 +130,7 @@ export default class AppEnvConstructor {
       this.backend = new NylasEmailBackend(window.nylasToken);
     }
     if (window.mailBackend === 'fake') {
-
+      this.backend = new FakeEmailBackend();
     }
 
     const MailsyncBridge = require('./flux/mailsync-bridge').default;

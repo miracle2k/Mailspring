@@ -516,31 +516,11 @@ class DatabaseStore extends MailspringStore {
 
 
     let data;
-    if (modelQuery._klass.name === 'Folder') {    
-      data = [
-        {data: JSON.stringify({
-          __cls: 'Folder',
-          id: 1,
-          aid: 1,
-          role: "something",
-          path: "something",
-          localStatus: null
-        })}
-      ]
+    if (modelQuery._klass.name === 'Folder') {
+      return AppEnv.backend.getFolders();
     }
     else if (modelQuery._klass.name === 'Label') {
       return AppEnv.backend.getLabels();
-
-      data = [
-        {data: JSON.stringify({
-          __cls: 'Label',
-          id: 3,
-          aid: 1,
-          role: "a label",
-          path: "label",
-          localStatus: null
-        })}
-      ]
     }
     else if (modelQuery._klass.name === 'Task') {
       data = [
@@ -555,53 +535,13 @@ class DatabaseStore extends MailspringStore {
       ]
     }
     else if (modelQuery._klass.name === 'Thread') {
-      data = [
-        {data: JSON.stringify({
-          __cls: 'Thread',
-          metadataForPluginId: {},
-          id: 99,
-          aid: 1,
-          subject: "Test",
-          lastMessageSentTimestamp: new Date().toISOString(),
-          lastMessageReceivedTimestamp: new Date().toISOString(),
-          folders: [],
-          labels: [],
-          participants: [
-            {
-              __cls: 'Contact',
-              id: 1,
-              name: "Michael",
-            }
-          ]
-        })}
-      ]
+      return AppEnv.backend.getThreads();
     }
     else if (modelQuery._klass.name === 'Message') {
-      data = [
-        {
-          body: `Email content`,
-          data: JSON.stringify({
-          __cls: 'Message',
-          metadataForPluginId: {},
-          id: 999,
-          aid: 1,
-          threadId: 99,
-          subject: "Test",
-          unread: true,
-          folder: {
-            __cls: 'Folder',
-            id: 1,
-            aid: 1,
-            role: "something",
-            path: "something",
-            localStatus: null
-          },
-          date: new Date().toISOString(),          
-        })}
-      ]
+      return AppEnv.backend.getMessages();
     }
     else {
-      console.log('cannot answer queryf for ', modelQuery._klass.name, modelQuery)
+      console.log('cannot answer query for ', modelQuery._klass.name, modelQuery)
       data = [];
     }
 
