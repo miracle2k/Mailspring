@@ -1,49 +1,54 @@
-import 'babel-polyfill';
-import './promise-extensions';
-
-import Application from './browser/application';
-import AppEnv from './app-env';
-
-// pull in static files
-//
-// the global stylehseet
-import '../static/index.less';
-
-// all images
-const allImages = require.context('../static', true, /\.png$/);
-import Utils from './flux/models/utils';
-Utils.allImageContext = allImages;
+const React = require('react');
+const ReactDOM = require('react-dom');
 
 
-// browser/main.js
-
-// Similar as in AppEnv.js
-const options = {
-  resourcePath: "",
-  configDirPath: "",
-  version: "",
-  devMode: false,
-  specMode: false,
-};
-
-const setupErrorLogger = (args = {}) => {
-  const ErrorLogger = require('./error-logger');
-  const errorLogger = new ErrorLogger({
-    inSpecMode: args.specMode,
-    inDevMode: args.devMode,
-    resourcePath: args.resourcePath,
-  });
-  process.on('uncaughtException', errorLogger.reportError);
-  process.on('unhandledRejection', errorLogger.reportError);
-  return errorLogger;
-};
-global.errorLogger = setupErrorLogger({});
+const nylasAppAccessToken = '';
 
 
-global.application = new Application();
+export default class LoginWrapper extends React.Component {
+  static displayName = 'LoginWrapper';
 
-global.application.start(options).then(() => {
-    global.AppEnv = new AppEnv();
-    require('./global/mailspring-exports');
-    global.AppEnv.startRootWindow();
-})
+  state = {
+    loggedIn: false
+  };
+
+  render() {
+    return <div style={{margin: 30}}>
+      <button onClick={this.openWithFake}>Open UI with fake data</button>
+      <button onClick={this.openWithNylas}>Login with Nylas</button>
+    </div>
+  }
+
+  openWithFake = () => {
+    window.mailBackend = 'fake';
+    this.props.handleStart();
+  };
+
+  openWithNylas = () => {
+    window.location.href = `https://api.nylas.com/oauth/authorize?client_id=537zkfdb0nkeziolesy5p7r7u&response_type=token&scope=email&login_hint=foo&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Flogged-in&namespace_id=9vukh44ht75uslswj0i2hbyik&account_id=9vukh44ht75uslswj0i2hbyik&sid=187&access_token=${nylasAppAccessToken}&provider=gmail&email_address=foo@foo.com`;
+  }
+}
+
+
+// Check nylas return
+if (location.pathname === '/logged-in') {
+  let params = (new URL(document.location)).searchParams;
+
+  window.mailBackend = 'nylas';
+  window.nylasToken = params.get('access_token');
+
+  require('./index.real.js');
+}
+
+
+else {
+  const x = document.createElement('loginwrapper');
+  ReactDOM.render(React.createElement(LoginWrapper, {
+    handleStart: () => {
+      document.body.removeChild(x);
+      require('./index.real.js');
+    }
+  }), x);
+  document.body.appendChild(x);
+}
+
