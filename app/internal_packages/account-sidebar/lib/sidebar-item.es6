@@ -88,6 +88,7 @@ const onEditItem = function(item, value) {
 
   Actions.queueTask(
     SyncbackCategoryTask.forRenaming({
+      id: category.id,
       accountId: category.accountId,
       path: category.path,
       newName: newDisplayName,

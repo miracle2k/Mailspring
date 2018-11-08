@@ -11,6 +11,9 @@ export default class SyncbackCategoryTask extends Task {
     existingPath: Attributes.String({
       modelKey: 'existingPath',
     }),
+    categoryId: Attributes.String({
+      modelKey: 'categoryId',
+    }),
     created: Attributes.Object({
       modelKey: 'created',
     }),
@@ -23,8 +26,9 @@ export default class SyncbackCategoryTask extends Task {
     });
   }
 
-  static forRenaming({ path, accountId, newName }) {
+  static forRenaming({ id, path, accountId, newName }) {
     return new SyncbackCategoryTask({
+      categoryId: id,
       existingPath: path,
       path: newName, //utf7.imap.encode(newName),
       accountId: accountId,
