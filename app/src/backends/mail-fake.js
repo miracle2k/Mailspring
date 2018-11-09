@@ -12,7 +12,7 @@ export class FakeEmailBackend {
   async getLabels() {
     return [
       new Label({
-        id: 1,
+        id: "1",
         accountId: 1,
         role: null,
         localStatus: null,
@@ -20,7 +20,7 @@ export class FakeEmailBackend {
       }),
 
       new Label({
-        id: 2,
+        id: "2",
         accountId: 1,
         role: null,
         localStatus: null,
@@ -32,7 +32,7 @@ export class FakeEmailBackend {
   async getFolders() {
     return [
       new Folder({
-        id: 3,
+        id: "3",
         accountId: 1,
         role: null,
         localStatus: null,
@@ -40,7 +40,7 @@ export class FakeEmailBackend {
       }),
 
       new Folder({
-        id: 4,
+        id: "4",
         accountId: 1,
         role: null,
         localStatus: null,
