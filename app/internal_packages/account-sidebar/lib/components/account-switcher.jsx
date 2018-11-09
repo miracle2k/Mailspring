@@ -35,6 +35,10 @@ class AccountSwitcher extends React.Component {
   };
 
   _onShowMenu = () => {
+    Actions.switchPreferencesTab('Accounts');
+    Actions.openPreferences();
+    return;
+
     const { remote } = require('electron');
     const { Menu } = remote;
     const menu = Menu.buildFromTemplate(this._makeMenuTemplate());
