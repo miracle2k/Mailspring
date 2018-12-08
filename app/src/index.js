@@ -1,3 +1,7 @@
+import "core-js/shim"; // included < Stage 4 proposals
+import "regenerator-runtime/runtime";
+
+
 const React = require('react');
 const ReactDOM = require('react-dom');
 

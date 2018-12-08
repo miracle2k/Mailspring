@@ -25,7 +25,7 @@ module.exports = {
   ],
     
   resolve: {
-      extensions: ['.jsx', '.js', '.es6', '.json'],
+      extensions: ['.jsx', '.js', '.es6', '.json', '.ts', '.tsx'],
       alias: {
           "child_process": path.resolve(__dirname + "/app/src/env/child_process"),
           "keytar": path.resolve(__dirname + "/app/src/env/keytar"),
