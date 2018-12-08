@@ -37,8 +37,17 @@ export const remote = {
 };
 
 
-class Menu {
+export class Menu {
   popup() {
     console.log('popup something')
   }
 }
+
+export const shell = null;
+export const protocol = null;
+export const nativeImage = null;
+export const ipcMain = null;
+export const dialog = null;
+export const app = null;
+export const BrowserWindow = null;
+export const clipboard = null;
